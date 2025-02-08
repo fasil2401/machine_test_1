@@ -29,6 +29,15 @@ class HomeController extends GetxController {
     js.context.callMethod('eval', ["document.exitFullscreen();"]);
   }
 
+  /// Toggles fullscreen mode
+void toggleFullscreen() {
+  if (js.context.callMethod('eval', ["document.fullscreenElement"]) != null) {
+    exitFullscreen();
+  } else {
+    enterFullscreen();
+  }
+}
+
   /// Updates the image display based on the entered URL.
   void setImage() {
     imageUrl.value = urlController.text;
@@ -41,7 +50,7 @@ class HomeController extends GetxController {
         ..style.transform = 'translate(-50%, -50%)'
         ..style.maxWidth = '100%'
         ..style.maxHeight = '100%'
-        ..onDoubleClick.listen((_) => enterFullscreen());
+        ..onDoubleClick.listen((_) => toggleFullscreen());
       html.document.body?.children.add(imgElement!);
     }
   }
